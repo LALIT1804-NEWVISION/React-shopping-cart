@@ -1,0 +1,21 @@
+{
+  "products": {
+    "targetPrices": [
+      "$10.90",
+      "$14.90"
+    ],
+    "ProductNames": [
+      "Cropped Stay Groovy off white",
+      "Ringer Hall Pass",
+      "Black T-shirt with white stripes",
+      "Black Batman T-shirt",
+      "Turtles Ninja T-shirt",
+      "Grey T-shirt"
+    ]
+  },
+
+  "expectedValidation": {
+    "quantity": 1,
+    "currency": "$"
+  }
+}
