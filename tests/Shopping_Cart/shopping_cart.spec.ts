@@ -59,14 +59,14 @@ test.describe("Product Cart Validation Test Suite", () => {
   });
 
   test("TC_010 - Verify Subtotal validation", async ({ appAction }) => {
-    await appAction.product.addProductsByPrice(ProductData.products.targetPrices);
+  await appAction.product.addMatchingProductsByPrice(ProductData.products.targetPrices);
     await appAction.cart.openCart();
     const subtotal = await appAction.cart.calculateSubtotal();
     expect(subtotal).toBeGreaterThan(0);
   });
 
   test("TC_011 - Increase quantity", async ({ appAction }) => {
-    await appAction.product.addProductsByPrice(ProductData.products.targetPrices);
+    await appAction.product.addMatchingProductsByPrice(ProductData.products.targetPrices);
     await appAction.cart.openCart();
     const result = await appAction.cart.verifyIncreaseQuantity();
     //expect(result.afterIncreaseQuantity[0]).toBe(result.beforeIncreaseQuantity[0] + 1);
@@ -76,7 +76,7 @@ test.describe("Product Cart Validation Test Suite", () => {
   });
 
   test("TC_012 - Decrease quantity", async ({ appAction }) => {
-    await appAction.product.addProductsByPrice(ProductData.products.targetPrices);
+    await appAction.product.addMatchingProductsByPrice(ProductData.products.targetPrices);
     await appAction.cart.openCart();
     const result = await appAction.cart.verifyDecreaseQuantity();
     //expect(result.afterDecreaseQuantity[0]).toBe(result.beforeDecreaseQuantity[0] - 1);
@@ -96,7 +96,7 @@ test.describe("Product Cart Validation Test Suite", () => {
   });
 
   test("TC_015 - Complete shopping flow", async ({ appAction }) => {
-    await appAction.product.addProductsByPrice(ProductData.products.targetPrices);
+    await appAction.product.addMatchingProductsByPrice(ProductData.products.targetPrices);
     await appAction.cart.openCart();
     await appAction.cart.getCartProducts();
     await appAction.cart.getAllitemQuantities();

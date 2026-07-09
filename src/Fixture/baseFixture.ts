@@ -1,9 +1,7 @@
 import { test as base, expect } from "@playwright/test";
-import { ProductAction } from "../Actions/ProductAction/productAction";
+import { ProductAction } from "../Actions/ProductAction/ProductAction";
 import { CartAction } from "../Actions/CartAction/cartAction";
 import BaseData from "../testdata/BaseData/base.json";
-
-
 
 type AppAction = {
   product: ProductAction;

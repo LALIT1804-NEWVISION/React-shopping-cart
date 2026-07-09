@@ -58,6 +58,7 @@ export class CartAction {
   }
 
   async calculateSubtotal() {
+    await this.cartPage.subtotal.waitFor({ state: "visible", timeout: 10000 });
     const AmmountValue = await this.cartPage.subtotal.innerText();
     console.log("Ammount Value:", AmmountValue);
     const subtotalAmount = Number(AmmountValue?.replace(/[^0-9.]/g, "") || 0);

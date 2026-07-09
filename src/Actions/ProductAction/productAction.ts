@@ -60,6 +60,10 @@ export class ProductAction {
       if (productName && ProductNames.includes(productName)) {
         await this.productPage.addToCartButton.nth(i).click();
         await this.productPage.closecartButton.click();
+        await this.productPage.closecartButton.waitFor({
+        state: "hidden",
+        timeout: 5000
+      });
         selectedProducts.push({
           name: productName ?? "",
         });
@@ -78,18 +82,18 @@ export class ProductAction {
       selectedIndexes.add(randomIndex);
     }
     for (const i of selectedIndexes) {
-      const productName = await this.productPage.productName
-        .nth(i)
-        .textContent();
+      const productName = await this.productPage.productName.nth(i).textContent();
       if (productName) {
         await this.productPage.addToCartButton.nth(i).click();
+        //await expect(this.productPage.closecartButton).toBeVisible({timeout: 5000});
         await this.productPage.closecartButton.click();
+        //await this.productPage.closecartButton.waitFor({state: "hidden",timeout: 5000});
         selectedRandomProducts.push({
           name: productName.trim(),
         });
       }
     }
-    //console.log("Randomly Added Products:", selectedRandomProducts);
+    console.log("Randomly Added Products:", selectedRandomProducts);
     return selectedRandomProducts;
   }
 
