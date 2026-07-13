@@ -72,33 +72,6 @@ export class ProductAction {
     //console.log("Added Products:", selectedProducts);
     return selectedProducts;
   }
-  async addRandomProducts(min = 4, max = 5) {
-    const productCount = await this.productPage.Allproducts.count();
-    const selectedIndexes = new Set<number>();
-    const selectedRandomProducts: { name: string }[] = [];
-    const targetCount = Math.floor(Math.random() * (max - min + 1)) + min;
-    while (selectedIndexes.size < targetCount) {
-      const randomIndex = Math.floor(Math.random() * productCount);
-      selectedIndexes.add(randomIndex);
-    }
-    for (const i of selectedIndexes) {
-      const productName = await this.productPage.productName.nth(i).textContent();
-      if (productName) {
-        await this.productPage.addToCartButton.nth(i).click();
-        //await expect(this.productPage.closecartButton).toBeVisible({timeout: 5000});
-        //await expect(this.productPage.closecartButton).toBeVisible();
-        await this.productPage.closecartButton.click();
-        //await expect(this.productPage.closecartButton).toBeHidden();
-        //await this.productPage.closecartButton.click();
-        //await this.productPage.closecartButton.waitFor({state: "hidden",timeout: 5000});
-        selectedRandomProducts.push({
-          name: productName.trim(),
-        });
-      }
-    }
-    console.log("Randomly Added Products:", selectedRandomProducts);
-    return selectedRandomProducts;
-  }
 
   async addMatchingProductsByPrice(targetPrices: string[]) {
     await this.productPage.Allproducts.first().waitFor({ state: "visible" });
