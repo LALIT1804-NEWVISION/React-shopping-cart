@@ -1,0 +1,2 @@
+Before Decrease Quantity: [ 2, 2, 2, 2, 2, 2 ]
+After Decrease Quantity: [ 1, 1, 1, 1, 1, 1 ]

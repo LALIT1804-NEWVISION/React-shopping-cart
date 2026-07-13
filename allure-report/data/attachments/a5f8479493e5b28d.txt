@@ -1,0 +1,6 @@
+Before Increase Quantity: [ 1, 1, 1, 1, 1, 1 ]
+After Increase Quantity: [ 2, 2, 2, 2, 2, 2 ]
+Before Decrease Quantity: [ 3, 3, 3, 3, 3, 3 ]
+After Decrease Quantity: [ 2, 2, 2, 2, 2, 2 ]
+Ammount Value: $ 146.80
+Subtotal: 146.8

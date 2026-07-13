@@ -15,7 +15,7 @@ export class ProductPage {
     this.page = page;
     this.product10_90 = page.locator("//b[text()='10']/parent::p/span[text()='.90']");
     this.product14_90 = page.locator("//b[text()='14']/parent::p/span[text()='.90']");
-    this.Allproducts = page.locator('.sc-124al1g-2');
+    this.Allproducts = page.locator('div.sc-124al1g-2');
     this.productName = page.locator("//div[@tabindex='1']/p[@class='sc-124al1g-4 eeXMBo']");
     this.productPrice = page.locator("//div[@tabindex='1']//p[@class='sc-124al1g-6 ljgnQL']");
     this.addToCartButton = page.getByRole('button', { name: 'Add to cart' });

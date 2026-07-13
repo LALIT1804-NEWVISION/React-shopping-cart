@@ -86,7 +86,10 @@ export class ProductAction {
       if (productName) {
         await this.productPage.addToCartButton.nth(i).click();
         //await expect(this.productPage.closecartButton).toBeVisible({timeout: 5000});
+        //await expect(this.productPage.closecartButton).toBeVisible();
         await this.productPage.closecartButton.click();
+        //await expect(this.productPage.closecartButton).toBeHidden();
+        //await this.productPage.closecartButton.click();
         //await this.productPage.closecartButton.waitFor({state: "hidden",timeout: 5000});
         selectedRandomProducts.push({
           name: productName.trim(),
