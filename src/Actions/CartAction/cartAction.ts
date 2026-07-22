@@ -10,6 +10,55 @@ export class CartAction {
     this.cartPage = new CartPage(page);
   }
 
+
+  async verifyProductPriceCount(targetPrices: string[]) {
+    await this.cartPage.Allproducts.first().waitFor({ state: "visible" });
+    const productCount = await this.cartPage.Allproducts.count();
+    const selectedProducts: { name: string; price: string }[] = [];
+    for (let i = 0; i < productCount; i++) {
+      const productName = await this.cartPage.productName.nth(i).textContent();
+      const productPrice = await this.cartPage.productPrice.nth(i).textContent();
+      if (productPrice && targetPrices.includes(productPrice.trim())) {
+        selectedProducts.push({name: productName?.trim() || "",price: productPrice.trim(),
+        });
+      }
+    }
+    console.log(selectedProducts);
+    return selectedProducts.length;
+  }
+
+  async addMatchingProductsByPrice(targetPrices: string[]) {
+    await this.cartPage.Allproducts.first().waitFor({ state: "visible" });
+    const productCount = await this.cartPage.Allproducts.count();
+    const selectedMatchingProductsByPrice: { name: string; price: string }[] = [];
+    for (let i = 0; i < productCount; i++) {
+      const productName = await this.cartPage.productName.nth(i).textContent();
+      const productPrice = await this.cartPage.productPrice.nth(i).textContent();
+      if (productPrice && targetPrices.includes(productPrice)) {
+        await this.cartPage.addToCartButton.nth(i).click();
+        await this.cartPage.closecartButton.click();
+        selectedMatchingProductsByPrice.push({name: productName ?? "",price: productPrice
+        });
+      }
+    }
+  }
+
+  async addMultipleProducts(ProductNames: string[]) {
+    const productCount = await this.cartPage.Allproducts.count();
+    const selectedProducts: { name: string }[] = [];
+    for (let i = 0; i < productCount; i++) {
+      const productName = await this.cartPage.productName.nth(i).textContent();
+      if (productName && ProductNames.includes(productName)) {
+        await this.cartPage.addToCartButton.nth(i).click();
+        await this.cartPage.closecartButton.click();
+        await this.cartPage.closecartButton.waitFor({
+          state: "hidden",
+          timeout: 5000,
+        });
+        selectedProducts.push({ name: productName ?? "" });
+      }
+    }
+  }
   async getCartCount() {
     return await this.cartPage.cartItems.count();
   }
@@ -19,14 +68,10 @@ export class CartAction {
     const products: { name: string; price: string }[] = [];
     for (let i = 0; i < count; i++) {
       const item = this.cartPage.cartItems.nth(i);
-      const name = await item
-        .locator(this.cartPage.cartProductName)
-        .textContent();
+      const name = await item.locator(this.cartPage.cartProductName).textContent();
       const price = await item.locator(this.cartPage.cartPrice).textContent();
       const cleanPrice = price?.replace(/[^0-9.$]/g, "").replace(/\s+/g, "");
-      products.push({
-        name: name?.trim() ?? "",
-        price: cleanPrice?.trim() ?? "",
+      products.push({name: name?.trim() ?? "",price: cleanPrice?.trim() ?? ""
       });
     }
     //console.log("Cart Products:", products);
@@ -85,7 +130,7 @@ export class CartAction {
     }
     const beforeDecreaseQuantity = await this.getAllitemQuantities();
     console.log("Before Decrease Quantity:", beforeDecreaseQuantity);
-     for (let i = count - 1; i >= 0; i--) {
+    for (let i = count - 1; i >= 0; i--) {
       await this.cartPage.decreaseBtn.nth(i).click();
     }
     const afterDecreaseQuantity = await this.getAllitemQuantities();

@@ -1,12 +1,9 @@
 import { test as base, expect } from "@playwright/test";
-import { ProductAction } from "../Actions/ProductAction/productAction";
 import { CartAction } from "../Actions/CartAction/cartAction";
 import BaseData from "../testdata/BaseData/base.json";
 
 type AppAction = {
-  product: ProductAction;
   cart: CartAction;  
-  
 };
 type Fixtures = {
   gotoBaseUrl: void;
@@ -26,7 +23,6 @@ export const test = base.extend<Fixtures>({
   appAction: async ({ page }, use) => {
     const appAction: AppAction = {
       cart: new CartAction(page),
-      product: new ProductAction(page),
     };
     await use(appAction);
   },

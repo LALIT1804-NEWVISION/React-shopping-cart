@@ -2,6 +2,11 @@ import { Page, Locator } from "@playwright/test";
 
 export class CartPage {
   readonly page: Page;
+  readonly Allproducts: Locator;
+  readonly productName: Locator;
+  readonly productPrice: Locator;
+  readonly addToCartButton: Locator;
+  readonly closecartButton :Locator;
   readonly cartItems: Locator;
   readonly cartButton: Locator;
   readonly cartProductName: Locator;
@@ -14,6 +19,11 @@ export class CartPage {
 
   constructor(page: Page) {
     this.page = page;
+    this.Allproducts = page.locator('div.sc-124al1g-2');
+    this.productName = page.locator("//div[@tabindex='1']/p[@class='sc-124al1g-4 eeXMBo']");
+    this.productPrice = page.locator("//div[@tabindex='1']//p[@class='sc-124al1g-6 ljgnQL']");
+    this.addToCartButton = page.getByRole('button', { name: 'Add to cart' });
+    this.closecartButton = page.getByRole("button", { name: "X" });
     this.cartItems = page.locator("div.sc-11uohgb-0");
     this.cartButton = page.locator(".sc-1h98xa9-0");
     this.cartProductName = page.locator("p.sc-11uohgb-2");
